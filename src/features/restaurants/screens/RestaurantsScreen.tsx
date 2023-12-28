@@ -1,40 +1,30 @@
-import { Platform, SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
-import styled from 'styled-components/native';
-import SearchBar from '../../../components/SearchBar';
+import SearchBar from '../../../components/SearchBar/SearchBar';
 import RestaurantInfoCard from '../components/RestaurantInfoCard';
-
-const StyledSafeAreaView = styled.SafeAreaView`
-  flex: 1;
-  margin-top: ${Platform.OS === 'android' ? StatusBar.currentHeight + 'px' : 0};
-`;
-
-const SearchContainer = styled.View`
-  padding: 16px;
-  justify-content: center;
-`;
-
-const RestaurantList = styled.View`
-  flex: 1;
-  padding: 16px;
-`;
+import { SafeArea } from '../../../components/SafeArea/SafeArea';
+import { RestaurantList, SearchContainer } from './RestaurantScreen.styles';
 
 const RestaurantsScreen = () => {
   return (
-    <StyledSafeAreaView>
+    <SafeArea>
       <SearchContainer>
         <SearchBar />
       </SearchContainer>
-      <RestaurantList>
-        <RestaurantInfoCard restaurant={{}} />
-      </RestaurantList>
-    </StyledSafeAreaView>
+      <RestaurantList
+        data={[
+          { name: '1' },
+          { name: '2' },
+          { name: '3' },
+          { name: '4' },
+          { name: '5' },
+          { name: '6' },
+          { name: '7' },
+          { name: '8' },
+        ]}
+        renderItem={() => <RestaurantInfoCard restaurant={{}} />}
+        keyExtractor={(item: any) => item.name}
+      />
+    </SafeArea>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {},
-  search: {},
-  list: {},
-});
 
 export default RestaurantsScreen;
