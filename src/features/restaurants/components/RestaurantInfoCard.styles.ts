@@ -1,13 +1,13 @@
 import { Card } from 'react-native-paper';
-import styled from 'styled-components/native';
+import styled, { withTheme } from 'styled-components/native';
 
-export const RestaurantCard = styled(Card)`
-  background-color: ${({ theme }) => theme.colors!.bg.primary};
-`;
+export const RestaurantCard = styled(withTheme(Card))`
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+` as typeof Card;
 
-export const RestaurantCardCover = styled(Card.Cover)`
+export const RestaurantCardCover = styled(withTheme(Card.Cover))`
   padding: ${({ theme }) => theme.space[3]};
-  background-color: ${({ theme }) => theme.colors!.bg.primary};
+  background-color: ${({ theme }) => theme.colors.bg.primary};
   border-radius: 0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -38,6 +38,7 @@ export const Rating = styled.View`
 
 export const Status = styled.View`
   flex-direction: row;
+  align-items: center;
   gap: 16px;
 `;
 

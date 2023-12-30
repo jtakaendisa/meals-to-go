@@ -13,41 +13,27 @@ import {
   RestaurantCardCover,
   Status,
 } from './RestaurantInfoCard.styles';
+import { Restaurant } from '../../../services/restaurants/restaurants.context';
 
-// interface RestaurantInfoProps {
-//   restaurant: {
-//     name: string | undefined;
-//     icon: string;
-//     photos: string[];
-//     address: string;
-//     isOpenNow: boolean;
-//     rating: number;
-//     isClosedTemporarily: boolean;
-//   };
-// }
-
-interface RestaurantInfoProps {
-  restaurant: any;
+interface Props {
+  restaurant: Restaurant;
 }
 
-const RestaurantInfoCard = ({ restaurant = {} }: RestaurantInfoProps) => {
-  const {
-    name = 'Some Restaurant',
-    icon = 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png',
-    photos = [
-      'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg',
-    ],
-    address = '100 some random street',
-    isOpenNow = true,
-    rating = 4,
-    isClosedTemporarily = true,
-  } = restaurant;
+const PLACEHOLDER_PHOTO_URI =
+  'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg';
+
+const RestaurantInfoCard = ({ restaurant }: Props) => {
+  const { name, icon, photos, vicinity, isOpenNow, rating, isClosedTemporarily } =
+    restaurant;
 
   const ratingArray = Array.from(new Array(Math.floor(rating)));
 
   return (
     <RestaurantCard>
-      <RestaurantCardCover source={{ uri: photos[0] }} />
+      <RestaurantCardCover
+        as={Card.Cover}
+        source={{ uri: photos[0].photo_reference || PLACEHOLDER_PHOTO_URI }}
+      />
       <Card.Content>
         <Title>{name}</Title>
         <InfoRow>
@@ -62,7 +48,7 @@ const RestaurantInfoCard = ({ restaurant = {} }: RestaurantInfoProps) => {
             <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
           </Status>
         </InfoRow>
-        <Address>{address}</Address>
+        <Address>{vicinity}</Address>
       </Card.Content>
     </RestaurantCard>
   );
