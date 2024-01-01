@@ -2,34 +2,34 @@ import { Card } from 'react-native-paper';
 import styled, { withTheme } from 'styled-components/native';
 
 export const RestaurantCard = styled(withTheme(Card))`
-  background-color: ${({ theme }) => theme.colors.bg.primary};
+  background-color: ${({ theme }) => theme.customTheme.colors.bg.primary};
 ` as typeof Card;
 
 export const RestaurantCardCover = styled(withTheme(Card.Cover))`
-  padding: ${({ theme }) => theme.space[3]};
-  background-color: ${({ theme }) => theme.colors.bg.primary};
+  padding: ${({ theme }) => theme.customTheme.space[3]};
+  background-color: ${({ theme }) => theme.customTheme.colors.bg.primary};
   border-radius: 0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-`;
+` as typeof Card.Cover;
 
 export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.ui.primary};
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.body};
+  color: ${({ theme }) => theme.customTheme.colors.ui.primary};
+  font-family: ${({ theme }) => theme.customTheme.fonts.heading};
+  font-size: ${({ theme }) => theme.customTheme.fontSizes.body};
 `;
 
 export const Address = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.body};
-  font-size: ${({ theme }) => theme.fontSizes.caption};
+  font-family: ${({ theme }) => theme.customTheme.fonts.body};
+  font-size: ${({ theme }) => theme.customTheme.fontSizes.caption};
 `;
 
 export const InfoRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: ${({ theme }) => theme.space[2]};
-  padding-bottom: ${({ theme }) => theme.space[2]};
+  padding-top: ${({ theme }) => theme.customTheme.space[2]};
+  padding-bottom: ${({ theme }) => theme.customTheme.space[2]};
 `;
 
 export const Rating = styled.View`
@@ -43,6 +43,6 @@ export const Status = styled.View`
 `;
 
 export const ClosedText = styled.Text`
-  color: ${({ theme }) => theme.colors.text.error};
-  font-family: ${({ theme }) => theme.fonts.body};
+  color: ${({ theme }) => theme.customTheme.colors.text.error};
+  font-family: ${({ theme }) => theme.customTheme.fonts.body};
 `;

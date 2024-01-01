@@ -5,12 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
-import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 
 import MapScreen from './src/features/map/screens/MapScreen';
 import RestaurantsScreen from './src/features/restaurants/screens/RestaurantsScreen';
 import SettingsScreen from './src/features/settings/screens/SettingsScreen';
-import { theme as customTheme } from './src/infrastructure/theme';
+import { theme } from './src/infrastructure/theme';
 import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
 
 const ROUTES = {
@@ -35,16 +35,12 @@ const App = () => {
     return null;
   }
 
-  const theme = {
-    customTheme,
-  } as unknown as typeof DefaultTheme;
-
   const Tab = createBottomTabNavigator();
 
   return (
     <>
       <PaperProvider theme={theme}>
-        <ThemeProvider theme={customTheme}>
+        <ThemeProvider theme={theme}>
           <RestaurantsContextProvider>
             <NavigationContainer>
               <Tab.Navigator

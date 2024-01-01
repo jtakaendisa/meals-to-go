@@ -19,9 +19,6 @@ interface Props {
   restaurant: Restaurant;
 }
 
-const PLACEHOLDER_PHOTO_URI =
-  'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg';
-
 const RestaurantInfoCard = ({ restaurant }: Props) => {
   const { name, icon, photos, vicinity, isOpenNow, rating, isClosedTemporarily } =
     restaurant;
@@ -30,10 +27,7 @@ const RestaurantInfoCard = ({ restaurant }: Props) => {
 
   return (
     <RestaurantCard>
-      <RestaurantCardCover
-        as={Card.Cover}
-        source={{ uri: photos[0] || PLACEHOLDER_PHOTO_URI }}
-      />
+      <RestaurantCardCover source={{ uri: photos[0] }} />
       <Card.Content>
         <Title>{name}</Title>
         <InfoRow>
