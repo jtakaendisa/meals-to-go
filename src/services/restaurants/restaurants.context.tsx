@@ -2,12 +2,12 @@ import { useState, createContext, useEffect, useMemo, PropsWithChildren } from '
 
 import { restaurantsRequest, restaurantsTransform } from './restaurants.service';
 
-interface Photo {
-  width: number;
-  height: number;
-  html_attributions: string[];
-  photo_reference: string;
-}
+// interface Photo {
+//   width: number;
+//   height: number;
+//   html_attributions: string[];
+//   photo_reference: string;
+// }
 
 export interface Restaurant {
   business_status: string;
@@ -22,7 +22,7 @@ export interface Restaurant {
   opening_hours: {
     open_now: boolean;
   };
-  photos: Photo[];
+  photos: string[];
   rating: number;
   user_ratings_total: number;
   vicinity: string;
@@ -39,16 +39,19 @@ export interface FetchRestaurantsResponse {
 interface RestaurantsContextType {
   restaurants: Restaurant[];
   isLoading: boolean;
+  error: Error | null;
 }
 
 export const RestaurantsContext = createContext<RestaurantsContextType>({
   restaurants: [],
   isLoading: false,
+  error: null,
 });
 
 export const RestaurantsContextProvider = ({ children }: PropsWithChildren) => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   const retrieveRestaurants = () => {
     setIsLoading(true);
@@ -59,7 +62,7 @@ export const RestaurantsContextProvider = ({ children }: PropsWithChildren) => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
         setIsLoading(false);
       });
   };
@@ -68,7 +71,7 @@ export const RestaurantsContextProvider = ({ children }: PropsWithChildren) => {
     retrieveRestaurants();
   }, []);
   return (
-    <RestaurantsContext.Provider value={{ restaurants, isLoading }}>
+    <RestaurantsContext.Provider value={{ restaurants, isLoading, error }}>
       {children}
     </RestaurantsContext.Provider>
   );

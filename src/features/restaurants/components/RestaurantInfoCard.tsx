@@ -32,7 +32,7 @@ const RestaurantInfoCard = ({ restaurant }: Props) => {
     <RestaurantCard>
       <RestaurantCardCover
         as={Card.Cover}
-        source={{ uri: photos[0].photo_reference || PLACEHOLDER_PHOTO_URI }}
+        source={{ uri: photos[0] || PLACEHOLDER_PHOTO_URI }}
       />
       <Card.Content>
         <Title>{name}</Title>

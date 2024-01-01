@@ -1,21 +1,21 @@
 import { useContext } from 'react';
 
-import { FlatList, ListRenderItem } from 'react-native';
+import { Text } from 'react-native';
 import { SafeArea } from '../../../components/SafeArea/SafeArea';
 import SearchBar from '../../../components/SearchBar/SearchBar';
-import {
-  Restaurant,
-  RestaurantsContext,
-} from '../../../services/restaurants/restaurants.context';
+import { RestaurantsContext } from '../../../services/restaurants/restaurants.context';
 import RestaurantInfoCard from '../components/RestaurantInfoCard';
 import { RestaurantList, SearchContainer } from './RestaurantScreen.styles';
 
 const RestaurantsScreen = () => {
-  const { restaurants } = useContext(RestaurantsContext);
+  const { restaurants, isLoading, error } = useContext(RestaurantsContext);
 
-  const renderItem: ListRenderItem<Restaurant> = ({ item }) => {
-    return <RestaurantInfoCard restaurant={item} />;
-  };
+  if (isLoading || error)
+    return (
+      <SafeArea style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Text>{error ? error.message : 'Loading...'}</Text>
+      </SafeArea>
+    );
 
   return (
     <SafeArea>
@@ -24,8 +24,8 @@ const RestaurantsScreen = () => {
       </SearchContainer>
       <RestaurantList
         data={restaurants}
-        renderItem={renderItem}
-        keyExtractor={(item: Restaurant) => item.name}
+        renderItem={({ item }) => <RestaurantInfoCard restaurant={item} />}
+        keyExtractor={(item) => item.name}
       />
     </SafeArea>
   );

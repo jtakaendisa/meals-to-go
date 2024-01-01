@@ -1,4 +1,4 @@
-import { mocks } from './mock';
+import { mockImages, mocks } from './mock';
 import { FetchRestaurantsResponse } from './restaurants.context';
 
 export const restaurantsRequest = (
@@ -17,11 +17,16 @@ export const restaurantsRequest = (
   });
 
 export const restaurantsTransform = (value: FetchRestaurantsResponse) => {
-  const restaurants = value.results.map((restaurant) => ({
-    ...restaurant,
-    isClosedTemporarily: restaurant.business_status === 'CLOSED_TEMPORARILY',
-    isOpenNow: restaurant.opening_hours && restaurant.opening_hours.open_now,
-  }));
+  const restaurants = value.results.map((restaurant) => {
+    const photo = mockImages[Math.ceil(Math.random() * (mockImages.length - 1))];
+
+    return {
+      ...restaurant,
+      isClosedTemporarily: restaurant.business_status === 'CLOSED_TEMPORARILY',
+      isOpenNow: restaurant.opening_hours && restaurant.opening_hours.open_now,
+      photos: [photo],
+    };
+  });
 
   return restaurants;
 };
