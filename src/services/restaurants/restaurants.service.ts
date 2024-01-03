@@ -1,9 +1,9 @@
 import { mockImages, mocks } from './mock';
 import { FetchRestaurantsResponse } from './restaurants.context';
 
-export const restaurantsRequest = (
-  location: keyof typeof mocks = '37.7749295,-122.4194155'
-) =>
+export type LocationString = keyof typeof mocks;
+
+export const restaurantsRequest = (location: LocationString) =>
   new Promise<FetchRestaurantsResponse>((resolve, reject) => {
     const mock = mocks[location];
 

@@ -1,16 +1,19 @@
-import { useState } from 'react';
 import { Searchbar as PaperSearchBar } from 'react-native-paper';
 
-const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+interface Props {
+  placeholder: string;
+  value: string;
+  onChangeText: (s: any) => void;
+  onSearch: (s: any) => void;
+}
 
-  const onChangeSearch = (query: string) => setSearchQuery(query);
-
+const SearchBar = ({ placeholder, value, onChangeText, onSearch }: Props) => {
   return (
     <PaperSearchBar
-      placeholder="Search..."
-      onChangeText={onChangeSearch}
-      value={searchQuery}
+      placeholder={placeholder}
+      onChangeText={onChangeText}
+      value={value}
+      onSubmitEditing={() => onSearch(value)}
     />
   );
 };

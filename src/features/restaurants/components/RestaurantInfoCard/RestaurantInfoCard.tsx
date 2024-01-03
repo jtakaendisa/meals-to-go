@@ -2,8 +2,9 @@ import { Image } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { Card, Title } from 'react-native-paper';
 
-import open from '../../../../assets/open';
-import star from '../../../../assets/star';
+import { Restaurant } from '../../../../services/restaurants/restaurants.context';
+import open from '../../../../../assets/open';
+import star from '../../../../../assets/star';
 import {
   Address,
   ClosedText,
@@ -13,7 +14,6 @@ import {
   RestaurantCardCover,
   Status,
 } from './RestaurantInfoCard.styles';
-import { Restaurant } from '../../../services/restaurants/restaurants.context';
 
 interface Props {
   restaurant: Restaurant;
@@ -23,7 +23,7 @@ const RestaurantInfoCard = ({ restaurant }: Props) => {
   const { name, icon, photos, vicinity, isOpenNow, rating, isClosedTemporarily } =
     restaurant;
 
-  const ratingArray = Array.from(new Array(Math.floor(rating)));
+  const ratingArray = Array.from({ length: Math.floor(rating) }, (_, index) => index);
 
   return (
     <RestaurantCard>
@@ -32,8 +32,8 @@ const RestaurantInfoCard = ({ restaurant }: Props) => {
         <Title>{name}</Title>
         <InfoRow>
           <Rating>
-            {ratingArray.map((_, index) => (
-              <SvgXml key={index} xml={star} width={20} height={20} />
+            {ratingArray.map((s) => (
+              <SvgXml key={s} xml={star} width={20} height={20} />
             ))}
           </Rating>
           <Status>

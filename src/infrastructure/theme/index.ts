@@ -17,7 +17,7 @@ interface CustomTheme {
   };
 }
 
-interface CustomPaperTheme extends MD3Theme, CustomTheme {}
+export interface CustomPaperTheme extends MD3Theme, CustomTheme {}
 
 export const theme: CustomPaperTheme = {
   ...PaperTheme,
