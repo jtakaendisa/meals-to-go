@@ -10,6 +10,7 @@ import AppNavigator from './src/infrastructure/navigation/app.navigator';
 import { theme } from './src/infrastructure/theme';
 import { LocationContextProvider } from './src/services/location/location.context';
 import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
+import { FavouritesContextProvider } from './src/services/favourites/favourites.context';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -25,11 +26,13 @@ const App = () => {
     <>
       <PaperProvider theme={theme}>
         <ThemeProvider theme={theme}>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <AppNavigator />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <AppNavigator />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
         </ThemeProvider>
       </PaperProvider>
       <ExpoStatusBar />

@@ -4,28 +4,11 @@ import { Platform } from 'react-native';
 
 import { Restaurant } from '../../../../services/restaurants/restaurants.context';
 import { Text } from 'react-native-paper';
+import { CalloutContainer, CalloutWebView, CalloutImage } from './MapCallout.styles';
 
 interface Props {
   restaurant: Restaurant;
 }
-
-const CalloutContainer = styled.View`
-  padding: ${({ theme }) => theme.customTheme.space[2]};
-  max-width: 120px;
-  align-items: center;
-`;
-
-const CalloutImage = styled.Image`
-  border-radius: 10px;
-  width: 120px;
-  height: 100px;
-`;
-
-const CalloutWebView = styled(WebView)`
-  border-radius: 10px;
-  width: 120px;
-  height: 100px;
-`;
 
 const MapCallout = ({ restaurant: { photos, name } }: Props) => {
   return (

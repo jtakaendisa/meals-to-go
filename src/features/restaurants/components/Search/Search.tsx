@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { LocationContext } from '../../../../services/location/location.context';
-import SearchBar from '../../../../components/SearchBar/SearchBar';
 import { SearchContainer } from './Search.styles';
 
 const Search = () => {
@@ -15,10 +14,12 @@ const Search = () => {
   return (
     <SearchContainer>
       <SearchBar
+        icon="heart"
+        onIconPress={() => null}
         placeholder="Search..."
         value={searchKeyword}
         onChangeText={setSearchKeyword}
-        onSearch={search}
+        onSearch={() => search(searchKeyword)}
       />
     </SearchContainer>
   );

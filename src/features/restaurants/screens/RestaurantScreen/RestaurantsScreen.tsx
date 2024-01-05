@@ -13,9 +13,11 @@ import {
 import RestaurantInfoCard from '../../components/RestaurantInfoCard/RestaurantInfoCard';
 import Search from '../../components/Search/Search';
 import { RestaurantList } from './RestaurantScreen.styles';
+import { FavouritesContext } from '../../../../services/favourites/favourites.context';
 
 const RestaurantsScreen = () => {
   const { restaurants, isLoading, error } = useContext(RestaurantsContext);
+  const { favourites } = useContext(FavouritesContext);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
   if (isLoading || error) {

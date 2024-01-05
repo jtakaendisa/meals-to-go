@@ -14,6 +14,7 @@ import {
   RestaurantCardCover,
   Status,
 } from './RestaurantInfoCard.styles';
+import Favourite from '../../../../components/Favourite/Favourite';
 
 interface Props {
   restaurant: Restaurant;
@@ -28,6 +29,7 @@ const RestaurantInfoCard = ({ restaurant, elevated }: Props) => {
 
   return (
     <RestaurantCard mode={elevated ? 'elevated' : 'contained'} elevated={elevated}>
+      <Favourite restaurant={restaurant} />
       <RestaurantCardCover source={{ uri: photos[0] }} />
       <Card.Content>
         <Title>{name}</Title>
