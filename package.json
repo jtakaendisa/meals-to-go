@@ -5,6 +5,7 @@
   "scripts": {
     "start": "expo start",
     "android": "REACT_NATIVE_PACKAGER_HOSTNAME=10.0.2.2 expo start --android",
+    "offline": "REACT_NATIVE_PACKAGER_HOSTNAME=10.0.2.2 expo start --android --offline",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "ts:check": "tsc",
@@ -26,7 +27,9 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "styled-components": "^6.1.4",
-    "react-native-gesture-handler": "~2.12.0"
+    "react-native-gesture-handler": "~2.12.0",
+    "react-native-maps": "1.7.1",
+    "react-native-webview": "13.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

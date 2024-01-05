@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
-import MapScreen from '../../features/map/screens/MapScreen';
+import MapScreen from '../../features/map/screens/MapScreen/MapScreen';
 import SettingsScreen from '../../features/settings/screens/SettingsScreen';
 import RestaurantsNavigator from './restaurants.navigator';
 
@@ -25,6 +25,8 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({ color, size }) => {
             const iconName = TAB_ICONS[route.name];
 
@@ -34,21 +36,9 @@ const AppNavigator = () => {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen
-          name={ROUTES.restaurants}
-          component={RestaurantsNavigator}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name={ROUTES.map}
-          component={MapScreen}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name={ROUTES.settings}
-          component={SettingsScreen}
-          options={{ headerShown: false }}
-        />
+        <Tab.Screen name={ROUTES.restaurants} component={RestaurantsNavigator} />
+        <Tab.Screen name={ROUTES.map} component={MapScreen} />
+        <Tab.Screen name={ROUTES.settings} component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

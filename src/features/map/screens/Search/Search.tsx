@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { LocationContext } from '../../../../services/location/location.context';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
+import { LocationContext } from '../../../../services/location/location.context';
 import { SearchContainer } from './Search.styles';
 
 const Search = () => {
@@ -15,7 +15,8 @@ const Search = () => {
   return (
     <SearchContainer>
       <SearchBar
-        placeholder="Search..."
+        placeholder="Search for a location"
+        icon="map"
         value={searchKeyword}
         onChangeText={setSearchKeyword}
         onSearch={search}

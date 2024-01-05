@@ -17,16 +17,17 @@ import {
 
 interface Props {
   restaurant: Restaurant;
+  elevated?: boolean;
 }
 
-const RestaurantInfoCard = ({ restaurant }: Props) => {
+const RestaurantInfoCard = ({ restaurant, elevated }: Props) => {
   const { name, icon, photos, vicinity, isOpenNow, rating, isClosedTemporarily } =
     restaurant;
 
   const ratingArray = Array.from({ length: Math.floor(rating) }, (_, index) => index);
 
   return (
-    <RestaurantCard>
+    <RestaurantCard mode={elevated ? 'elevated' : 'contained'} elevated={elevated}>
       <RestaurantCardCover source={{ uri: photos[0] }} />
       <Card.Content>
         <Title>{name}</Title>

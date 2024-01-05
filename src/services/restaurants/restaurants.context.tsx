@@ -1,18 +1,17 @@
 import {
-  useState,
-  createContext,
-  useEffect,
-  useMemo,
   PropsWithChildren,
+  createContext,
   useContext,
+  useEffect,
+  useState,
 } from 'react';
 
+import { LocationContext } from '../location/location.context';
 import {
   LocationString,
   restaurantsRequest,
   restaurantsTransform,
 } from './restaurants.service';
-import { LocationContext } from '../location/location.context';
 
 export interface Restaurant {
   business_status: string;
@@ -28,6 +27,7 @@ export interface Restaurant {
     open_now: boolean;
   };
   photos: string[];
+  place_id: string;
   rating: number;
   user_ratings_total: number;
   vicinity: string;

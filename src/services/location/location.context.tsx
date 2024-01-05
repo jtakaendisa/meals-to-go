@@ -2,8 +2,19 @@ import { useState, createContext, PropsWithChildren, useEffect } from 'react';
 
 import { SearchTerm, locationRequest, locationTransform } from './location.service';
 
+interface Viewport {
+  northeast: {
+    lat: number;
+    lng: number;
+  };
+  southwest: {
+    lat: number;
+    lng: number;
+  };
+}
+
 interface LocationContextType {
-  location: { lat: number; lng: number } | null;
+  location: { lat: number; lng: number; viewport: Viewport } | null;
   search: (s: SearchTerm) => void;
   keyword: SearchTerm;
   isLoading: boolean;
@@ -11,7 +22,20 @@ interface LocationContextType {
 }
 
 export const LocationContext = createContext<LocationContextType>({
-  location: { lat: 37.7749295, lng: -122.4194155 },
+  location: {
+    lat: 37.7749295,
+    lng: -122.4194155,
+    viewport: {
+      northeast: {
+        lat: 37.7750214302915,
+        lng: -122.4202089697085,
+      },
+      southwest: {
+        lat: 37.7723234697085,
+        lng: -122.4229069302915,
+      },
+    },
+  },
   search: () => {},
   keyword: 'san francisco',
   isLoading: false,
@@ -33,7 +57,7 @@ export const LocationContextProvider = ({ children }: PropsWithChildren) => {
     }
 
     try {
-      const location = await locationRequest(searchKeyword);
+      const location = await locationRequest(searchKeyword.toLowerCase() as SearchTerm);
       const locationCoords = locationTransform(location);
 
       setLocation(locationCoords);

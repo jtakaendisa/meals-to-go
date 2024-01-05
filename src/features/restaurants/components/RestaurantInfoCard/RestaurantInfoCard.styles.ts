@@ -1,17 +1,24 @@
-import { Card } from 'react-native-paper';
-import styled, { withTheme } from 'styled-components/native';
+import { ReactNode } from 'react';
+import { Card, CardProps } from 'react-native-paper';
+import styled from 'styled-components/native';
 
-export const RestaurantCard = styled(withTheme(Card))`
+interface RestaurantCardProps extends CardProps {
+  elevated?: boolean;
+  children: ReactNode;
+}
+
+export const RestaurantCard = styled(Card)<RestaurantCardProps>`
   background-color: ${({ theme }) => theme.customTheme.colors.bg.primary};
-` as typeof Card;
+  border-radius: ${({ elevated }) => (elevated ? 0 : '8px')};
+`;
 
-export const RestaurantCardCover = styled(withTheme(Card.Cover))`
+export const RestaurantCardCover = styled(Card.Cover)`
   padding: ${({ theme }) => theme.customTheme.space[3]};
   background-color: ${({ theme }) => theme.customTheme.colors.bg.primary};
   border-radius: 0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-` as typeof Card.Cover;
+`;
 
 export const Title = styled.Text`
   color: ${({ theme }) => theme.customTheme.colors.ui.primary};
