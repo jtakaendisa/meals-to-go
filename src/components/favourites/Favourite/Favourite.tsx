@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 
-import { FavouritesContext } from '../../services/favourites/favourites.context';
-import { Restaurant } from '../../services/restaurants/restaurants.context';
+import { FavouritesContext } from '../../../services/favourites/favourites.context';
+import { Restaurant } from '../../../services/restaurants/restaurants.context';
 
 interface Props {
   restaurant: Restaurant;

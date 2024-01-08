@@ -11,14 +11,29 @@ import { theme } from './src/infrastructure/theme';
 import { LocationContextProvider } from './src/services/location/location.context';
 import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
 import { FavouritesContextProvider } from './src/services/favourites/favourites.context';
+import { loginRequest } from './src/services/authentication/authentication.service';
+import { useEffect, useState } from 'react';
+import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [fontsLoaded] = useFonts({
     Oswald_400Regular,
     Lato_400Regular,
   });
 
-  if (!fontsLoaded) {
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await loginRequest('takaendisajames@gmail.com', 'test123');
+      if (user) {
+        setIsAuthenticated(true);
+        console.log(user);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (!fontsLoaded || !isAuthenticated) {
     return null;
   }
 
@@ -26,13 +41,15 @@ const App = () => {
     <>
       <PaperProvider theme={theme}>
         <ThemeProvider theme={theme}>
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <RestaurantsContextProvider>
-                <AppNavigator />
-              </RestaurantsContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <AuthenticationContextProvider>
+            <FavouritesContextProvider>
+              <LocationContextProvider>
+                <RestaurantsContextProvider>
+                  <AppNavigator />
+                </RestaurantsContextProvider>
+              </LocationContextProvider>
+            </FavouritesContextProvider>
+          </AuthenticationContextProvider>
         </ThemeProvider>
       </PaperProvider>
       <ExpoStatusBar />

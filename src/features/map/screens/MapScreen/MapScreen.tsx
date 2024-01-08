@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { Callout, Marker } from 'react-native-maps';
 
-import { LocationContext } from '../../../../services/location/location.context';
-import { RestaurantsContext } from '../../../../services/restaurants/restaurants.context';
-import MapCallout from '../../components/MapCallout/MapCallout';
-import Search from '../Search/Search';
-import { Map } from './MapScreen.styles';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import CompactRestaurantInfo from '../../../../components/CompactRestaurantInfo/CompactRestaurantInfo';
+import { LocationContext } from '../../../../services/location/location.context';
+import { RestaurantsContext } from '../../../../services/restaurants/restaurants.context';
+import Search from '../Search/Search';
+import { Map } from './MapScreen.styles';
 
 const MapScreen = () => {
   const { location } = useContext(LocationContext);
@@ -51,7 +51,7 @@ const MapScreen = () => {
               <Callout
                 onPress={() => navigation.navigate('RestaurantDetails', { restaurant })}
               >
-                <MapCallout restaurant={restaurant} />
+                <CompactRestaurantInfo restaurant={restaurant} isMap />
               </Callout>
             </Marker>
           );

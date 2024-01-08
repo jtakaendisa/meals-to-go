@@ -14,7 +14,7 @@ import {
   RestaurantCardCover,
   Status,
 } from './RestaurantInfoCard.styles';
-import Favourite from '../../../../components/Favourite/Favourite';
+import Favourite from '../../../../components/favourites/Favourite/Favourite';
 
 interface Props {
   restaurant: Restaurant;

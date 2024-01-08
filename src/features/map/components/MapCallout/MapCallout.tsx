@@ -1,10 +1,8 @@
-import styled from 'styled-components/native';
-import WebView from 'react-native-webview';
 import { Platform } from 'react-native';
+import { Text } from 'react-native-paper';
 
 import { Restaurant } from '../../../../services/restaurants/restaurants.context';
-import { Text } from 'react-native-paper';
-import { CalloutContainer, CalloutWebView, CalloutImage } from './MapCallout.styles';
+import { CalloutContainer, CalloutImage, CalloutWebView } from './MapCallout.styles';
 
 interface Props {
   restaurant: Restaurant;

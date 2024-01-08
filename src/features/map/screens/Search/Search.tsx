@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
+import { Searchbar } from 'react-native-paper';
 
-import SearchBar from '../../../../components/SearchBar/SearchBar';
 import { LocationContext } from '../../../../services/location/location.context';
 import { SearchContainer } from './Search.styles';
 
@@ -14,12 +14,12 @@ const Search = () => {
 
   return (
     <SearchContainer>
-      <SearchBar
+      <Searchbar
         placeholder="Search for a location"
         icon="map"
         value={searchKeyword}
-        onChangeText={setSearchKeyword}
-        onSearch={search}
+        onChangeText={(text: any) => setSearchKeyword(text)}
+        onSubmitEditing={() => search(searchKeyword)}
       />
     </SearchContainer>
   );
