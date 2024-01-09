@@ -1,18 +1,13 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { List } from 'react-native-paper';
 
 import { SafeArea } from '../../../../components/SafeArea/SafeArea';
-import { Restaurant } from '../../../../services/restaurants/restaurants.context';
+import { RootStackParamList } from '../../../../infrastructure/navigation/restaurants.navigator';
 import RestaurantInfoCard from '../../components/RestaurantInfoCard/RestaurantInfoCard';
 
-interface Props {
-  route: {
-    params: {
-      restaurant: Restaurant;
-    };
-  };
-}
+type Props = StackScreenProps<RootStackParamList, 'RestaurantDetails'>;
 
 const RestaurantDetailsScreen = ({
   route: {

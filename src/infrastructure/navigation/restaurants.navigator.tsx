@@ -1,8 +1,16 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantDetailsScreen from '../../features/restaurants/screens/RestaurantDetailsScreen/RestaurantDetailsScreen';
 import RestaurantsScreen from '../../features/restaurants/screens/RestaurantScreen/RestaurantsScreen';
+import { Restaurant } from '../../services/restaurants/restaurants.context';
 
-const RestaurantStack = createStackNavigator();
+export type RootStackParamList = {
+  RestaurantsList: undefined;
+  RestaurantDetails: {
+    restaurant: Restaurant;
+  };
+};
+
+const RestaurantStack = createStackNavigator<RootStackParamList>();
 
 const RestaurantsNavigator = () => {
   return (
