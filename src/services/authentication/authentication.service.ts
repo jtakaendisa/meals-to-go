@@ -1,5 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { firebaseConfig } from './config';
 
 initializeApp(firebaseConfig);
@@ -16,5 +20,17 @@ export const loginRequest = async (email: string, password: string) => {
     error = e;
   } finally {
     return { user, error };
+  }
+};
+
+export const createUser = async (email: string, password: string) => {
+  let newUser;
+  let error;
+  try {
+    newUser = await createUserWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    error = e;
+  } finally {
+    return { newUser, error };
   }
 };

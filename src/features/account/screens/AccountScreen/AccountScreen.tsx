@@ -3,7 +3,7 @@ import AccountBackground from '../../components/AccountBackground/AccountBackgro
 import { AuthButton } from '../../components/AuthButton/AuthButton.styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AccountContainer } from '../../components/AccountBackground/AccountBackground.styles';
-import { Title } from './AccountScreen.styles';
+import { Title } from '../../components/Title/Title.styles';
 
 const AccountScreen = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();

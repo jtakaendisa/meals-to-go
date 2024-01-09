@@ -1,7 +1,7 @@
 import { useState, createContext, PropsWithChildren } from 'react';
 import { UserCredential } from 'firebase/auth';
 
-import { loginRequest } from './authentication.service';
+import { createUser, loginRequest } from './authentication.service';
 
 interface AuthenticationContextType {
   user: UserCredential | null;
@@ -9,6 +9,7 @@ interface AuthenticationContextType {
   isAuthenticated: boolean;
   error: Error | null;
   onLogin: (email: string, password: string) => void;
+  onRegister: (email: string, password: string, repeatedPassword: string) => void;
 }
 
 export const AuthenticationContext = createContext<AuthenticationContextType>({
@@ -17,6 +18,7 @@ export const AuthenticationContext = createContext<AuthenticationContextType>({
   isAuthenticated: false,
   error: null,
   onLogin: () => {},
+  onRegister: () => {},
 });
 
 export const AuthenticationContextProvider = ({ children }: PropsWithChildren) => {
@@ -38,6 +40,30 @@ export const AuthenticationContextProvider = ({ children }: PropsWithChildren) =
     setIsLoading(false);
   };
 
+  const onRegister = async (
+    email: string,
+    password: string,
+    repeatedPassword: string
+  ) => {
+    setIsLoading(true);
+    if (password !== repeatedPassword) {
+      setError({ name: 'Password Mismatch', message: 'Error: Passwords do not match' });
+      setIsLoading(false);
+      return;
+    }
+
+    const { newUser, error } = await createUser(email, password);
+    if (newUser) {
+      setUser(newUser);
+    }
+    if (error) {
+      if (error instanceof Error) {
+        setError(error);
+      }
+    }
+    setIsLoading(false);
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -46,6 +72,7 @@ export const AuthenticationContextProvider = ({ children }: PropsWithChildren) =
         isAuthenticated: !!user,
         error,
         onLogin,
+        onRegister,
       }}
     >
       {children}
