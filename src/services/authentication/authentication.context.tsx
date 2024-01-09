@@ -1,10 +1,22 @@
-import { useState, createContext, PropsWithChildren } from 'react';
-import { UserCredential } from 'firebase/auth';
+import {
+  useState,
+  createContext,
+  PropsWithChildren,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
+import { User, UserCredential } from 'firebase/auth';
 
-import { createUser, loginRequest } from './authentication.service';
+import {
+  checkLoginStatus,
+  createUser,
+  getFirebaseAuth,
+  loginRequest,
+} from './authentication.service';
 
 interface AuthenticationContextType {
-  user: UserCredential | null;
+  user: User | UserCredential | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   error: Error | null;
@@ -22,9 +34,14 @@ export const AuthenticationContext = createContext<AuthenticationContextType>({
 });
 
 export const AuthenticationContextProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<UserCredential | null>(null);
+  const [user, setUser] = useState<User | UserCredential | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    getFirebaseAuth();
+    checkLoginStatus(setUser, setIsLoading);
+  }, []);
 
   const onLogin = async (email: string, password: string) => {
     setIsLoading(true);

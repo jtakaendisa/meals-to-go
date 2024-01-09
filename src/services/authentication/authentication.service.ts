@@ -1,14 +1,41 @@
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { initializeApp } from 'firebase/app';
 import {
+  Auth,
+  User,
   createUserWithEmailAndPassword,
-  getAuth,
+  getReactNativePersistence,
+  initializeAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth = getAuth();
+let auth: Auth;
+
+export const getFirebaseAuth = () => {
+  if (!auth) {
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+    });
+  }
+  return auth;
+};
+
+export const checkLoginStatus = (
+  setUser: (user: User) => void,
+  setIsLoading: (isLoading: boolean) => void
+) => {
+  setIsLoading(true);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser(user);
+    }
+    setIsLoading(false);
+  });
+};
 
 export const loginRequest = async (email: string, password: string) => {
   let user;

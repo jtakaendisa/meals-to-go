@@ -25,7 +25,7 @@ const RestaurantsScreen = () => {
   if (isLoading || error) {
     return (
       <SafeArea style={{ alignItems: 'center', justifyContent: 'center' }}>
-        {isLoading && <ActivityIndicator color={colors.ui.error} size={'large'} />}
+        {isLoading && <ActivityIndicator color={colors.ui.error} size="large" />}
         {error && <Text>{error}</Text>}
       </SafeArea>
     );

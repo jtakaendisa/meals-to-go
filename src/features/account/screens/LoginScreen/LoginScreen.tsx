@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { TextInput } from 'react-native-paper';
+import { ActivityIndicator, MD2Colors, TextInput } from 'react-native-paper';
 import { AuthenticationContext } from '../../../../services/authentication/authentication.context';
 import AccountBackground from '../../components/AccountBackground/AccountBackground';
 import { AuthButton } from '../../components/AuthButton/AuthButton.styles';
@@ -37,13 +37,17 @@ const LoginScreen = () => {
             autoCapitalize="none"
             onChangeText={setPassword}
           />
-          <AuthButton
-            icon="lock-open-outline"
-            onPress={() => onLogin(email, password)}
-            disabled={isLoading}
-          >
-            Login
-          </AuthButton>
+          {!isLoading ? (
+            <AuthButton
+              icon="lock-open-outline"
+              onPress={() => onLogin(email, password)}
+              disabled={isLoading}
+            >
+              Login
+            </AuthButton>
+          ) : (
+            <ActivityIndicator animating={true} color={MD2Colors.blue300} />
+          )}
           {error && <ErrorMessage>{error.message.split(': ')[1]}</ErrorMessage>}
         </AccountContainer>
       </FormContainer>
