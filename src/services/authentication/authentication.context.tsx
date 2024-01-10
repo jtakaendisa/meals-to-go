@@ -13,6 +13,7 @@ import {
   createUser,
   getFirebaseAuth,
   loginRequest,
+  signOutUser,
 } from './authentication.service';
 
 interface AuthenticationContextType {
@@ -22,6 +23,7 @@ interface AuthenticationContextType {
   error: Error | null;
   onLogin: (email: string, password: string) => void;
   onRegister: (email: string, password: string, repeatedPassword: string) => void;
+  onLogout: () => void;
 }
 
 export const AuthenticationContext = createContext<AuthenticationContextType>({
@@ -31,6 +33,7 @@ export const AuthenticationContext = createContext<AuthenticationContextType>({
   error: null,
   onLogin: () => {},
   onRegister: () => {},
+  onLogout: () => {},
 });
 
 export const AuthenticationContextProvider = ({ children }: PropsWithChildren) => {
@@ -81,6 +84,11 @@ export const AuthenticationContextProvider = ({ children }: PropsWithChildren) =
     setIsLoading(false);
   };
 
+  const onLogout = async () => {
+    setUser(null);
+    await signOutUser();
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -90,6 +98,7 @@ export const AuthenticationContextProvider = ({ children }: PropsWithChildren) =
         error,
         onLogin,
         onRegister,
+        onLogout,
       }}
     >
       {children}

@@ -8,6 +8,7 @@ import {
   initializeAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
@@ -60,4 +61,8 @@ export const createUser = async (email: string, password: string) => {
   } finally {
     return { newUser, error };
   }
+};
+
+export const signOutUser = async () => {
+  await signOut(auth);
 };

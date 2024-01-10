@@ -5,7 +5,9 @@ import { colors } from '../../../../infrastructure/theme/colors';
 export const AuthButton = styled(Button).attrs({
   mode: 'contained',
   buttonColor: colors.brand.primary,
+  contentStyle: {
+    padding: 8,
+  },
 })`
   border-radius: 8px;
-  padding: ${({ theme }) => theme.customTheme.space[2]};
 `;

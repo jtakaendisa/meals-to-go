@@ -1,6 +1,13 @@
-import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
+import { AuthenticationContext } from '../authentication/authentication.context';
 import { Restaurant } from '../restaurants/restaurants.context';
 
 interface FavouritesContextType {
@@ -17,6 +24,7 @@ export const FavouritesContext = createContext<FavouritesContextType>({
 
 export const FavouritesContextProvider = ({ children }: PropsWithChildren) => {
   const [favourites, setFavourites] = useState<Restaurant[]>([]);
+  const { user } = useContext(AuthenticationContext);
 
   const addToFavourites = (restaurant: Restaurant) => {
     setFavourites([...favourites, restaurant]);
@@ -30,18 +38,18 @@ export const FavouritesContextProvider = ({ children }: PropsWithChildren) => {
     setFavourites(filteredFavourites);
   };
 
-  const saveFavourites = async (value: Restaurant[]) => {
+  const saveFavourites = async (value: Restaurant[], uid: string) => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('favourites', jsonValue);
+      await AsyncStorage.setItem(`favourites-${uid}`, jsonValue);
     } catch (e) {
       console.log('error storing', e);
     }
   };
 
-  const loadFavourites = async () => {
+  const loadFavourites = async (uid: string) => {
     try {
-      const jsonValue = await AsyncStorage.getItem('favourites');
+      const jsonValue = await AsyncStorage.getItem(`favourites-${uid}`);
       if (jsonValue != null) {
         setFavourites(JSON.parse(jsonValue));
       }
@@ -51,12 +59,16 @@ export const FavouritesContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    loadFavourites();
-  }, []);
+    if (user && 'uid' in user) {
+      loadFavourites(user.uid);
+    }
+  }, [user]);
 
   useEffect(() => {
-    saveFavourites(favourites);
-  }, [favourites]);
+    if (user && 'uid' in user) {
+      saveFavourites(favourites, user.uid);
+    }
+  }, [favourites, user]);
 
   return (
     <FavouritesContext.Provider

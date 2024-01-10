@@ -4,6 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapScreen from '../../features/map/screens/MapScreen/MapScreen';
 import SettingsScreen from '../../features/settings/screens/SettingsScreen';
 import RestaurantsNavigator from './restaurants.navigator';
+import { FavouritesContextProvider } from '../../services/favourites/favourites.context';
+import { LocationContextProvider } from '../../services/location/location.context';
+import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 
 const ROUTES = {
   restaurants: 'Restaurants',
@@ -21,23 +24,29 @@ const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-        tabBarIcon: ({ color, size }) => {
-          const iconName = TAB_ICONS[route.name];
+    <FavouritesContextProvider>
+      <LocationContextProvider>
+        <RestaurantsContextProvider>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              headerShown: false,
+              tabBarHideOnKeyboard: true,
+              tabBarIcon: ({ color, size }) => {
+                const iconName = TAB_ICONS[route.name];
 
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
-      })}
-    >
-      <Tab.Screen name={ROUTES.restaurants} component={RestaurantsNavigator} />
-      <Tab.Screen name={ROUTES.map} component={MapScreen} />
-      <Tab.Screen name={ROUTES.settings} component={SettingsScreen} />
-    </Tab.Navigator>
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+              tabBarActiveTintColor: 'tomato',
+              tabBarInactiveTintColor: 'gray',
+            })}
+          >
+            <Tab.Screen name={ROUTES.restaurants} component={RestaurantsNavigator} />
+            <Tab.Screen name={ROUTES.map} component={MapScreen} />
+            <Tab.Screen name={ROUTES.settings} component={SettingsScreen} />
+          </Tab.Navigator>
+        </RestaurantsContextProvider>
+      </LocationContextProvider>
+    </FavouritesContextProvider>
   );
 };
 
