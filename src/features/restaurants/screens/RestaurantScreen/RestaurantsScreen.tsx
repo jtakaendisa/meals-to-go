@@ -9,6 +9,7 @@ import { colors } from '../../../../infrastructure/theme/colors';
 import { FavouritesContext } from '../../../../services/favourites/favourites.context';
 import { RestaurantsContext } from '../../../../services/restaurants/restaurants.context';
 import Search from '../../components/Search/Search';
+import FadeInView from '../../../../components/animations/FadeIn/FadeIn';
 
 const RestaurantsScreen = () => {
   const { restaurants, isLoading, error } = useContext(RestaurantsContext);
@@ -31,7 +32,9 @@ const RestaurantsScreen = () => {
         onFavouritesToggle={() => setIsToggled((prev) => !prev)}
       />
       {isToggled && <FavouritesBar favourites={favourites} />}
-      <RestaurantList data={restaurants} />
+      <FadeInView>
+        <RestaurantList data={restaurants} />
+      </FadeInView>
     </SafeArea>
   );
 };

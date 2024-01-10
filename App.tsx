@@ -29,7 +29,7 @@ const App = () => {
           </AuthenticationContextProvider>
         </ThemeProvider>
       </PaperProvider>
-      <ExpoStatusBar />
+      <ExpoStatusBar translucent />
     </>
   );
 };

@@ -12,4 +12,5 @@ export const UserAvatar = styled(Avatar.Icon)`
 export const UserDetailsContainer = styled.View`
   align-items: center;
   gap: 8px;
+  margin-top: 24px;
 `;

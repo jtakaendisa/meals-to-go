@@ -11,6 +11,7 @@ import { User } from 'firebase/auth';
 const SettingsScreen = () => {
   const { onLogout, user } = useContext(AuthenticationContext);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+
   return (
     <SafeArea>
       <UserDetailsContainer>
