@@ -21,7 +21,7 @@ const RestaurantDetailsScreen = ({
 
   return (
     <SafeArea>
-      <RestaurantInfoCard restaurant={restaurant} elevated={true} />
+      <RestaurantInfoCard restaurant={restaurant} elevated />
       <ScrollView>
         <List.Accordion
           title="Breakfast"

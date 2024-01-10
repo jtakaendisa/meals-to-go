@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Card, CardProps } from 'react-native-paper';
+import { Shadow } from 'react-native-shadow-2';
 import styled from 'styled-components/native';
 
 interface RestaurantCardProps extends CardProps {
@@ -52,4 +53,11 @@ export const Status = styled.View`
 export const ClosedText = styled.Text`
   color: ${({ theme }) => theme.customTheme.colors.text.error};
   font-family: ${({ theme }) => theme.customTheme.fonts.body};
+`;
+
+export const ShadowContainer = styled(Shadow).attrs({
+  offset: [0, 3],
+})`
+  border-radius: 16px;
+  width: 100%;
 `;

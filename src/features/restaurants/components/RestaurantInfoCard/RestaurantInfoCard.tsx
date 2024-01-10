@@ -12,6 +12,7 @@ import {
   Rating,
   RestaurantCard,
   RestaurantCardCover,
+  ShadowContainer,
   Status,
 } from './RestaurantInfoCard.styles';
 import Favourite from '../../../../components/favourites/Favourite/Favourite';
@@ -28,26 +29,28 @@ const RestaurantInfoCard = ({ restaurant, elevated }: Props) => {
   const ratingArray = Array.from({ length: Math.floor(rating) }, (_, index) => index);
 
   return (
-    <RestaurantCard mode={elevated ? 'elevated' : 'contained'} elevated={elevated}>
-      <Favourite restaurant={restaurant} />
-      <RestaurantCardCover source={{ uri: photos[0] }} />
-      <Card.Content>
-        <Title>{name}</Title>
-        <InfoRow>
-          <Rating>
-            {ratingArray.map((s) => (
-              <SvgXml key={s} xml={star} width={20} height={20} />
-            ))}
-          </Rating>
-          <Status>
-            {isClosedTemporarily && <ClosedText>CLOSED TEMPORARILY</ClosedText>}
-            {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
-            <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
-          </Status>
-        </InfoRow>
-        <Address>{vicinity}</Address>
-      </Card.Content>
-    </RestaurantCard>
+    <ShadowContainer>
+      <RestaurantCard mode={elevated ? 'elevated' : 'contained'} elevated={elevated}>
+        <Favourite restaurant={restaurant} />
+        <RestaurantCardCover source={{ uri: photos[0] }} />
+        <Card.Content>
+          <Title>{name}</Title>
+          <InfoRow>
+            <Rating>
+              {ratingArray.map((s) => (
+                <SvgXml key={s} xml={star} width={20} height={20} />
+              ))}
+            </Rating>
+            <Status>
+              {isClosedTemporarily && <ClosedText>CLOSED TEMPORARILY</ClosedText>}
+              {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+              <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
+            </Status>
+          </InfoRow>
+          <Address>{vicinity}</Address>
+        </Card.Content>
+      </RestaurantCard>
+    </ShadowContainer>
   );
 };
 

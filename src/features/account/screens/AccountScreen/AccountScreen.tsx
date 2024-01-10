@@ -9,6 +9,8 @@ import { AuthenticationContext } from '../../../../services/authentication/authe
 import { ActivityIndicator } from 'react-native-paper';
 import { SafeArea } from '../../../../components/SafeArea/SafeArea';
 import { colors } from '../../../../infrastructure/theme/colors';
+import AnimatedLottieView from 'lottie-react-native';
+import { AnimationContainer } from './AccountScreen.styles';
 
 const AccountScreen = () => {
   const { isLoading } = useContext(AuthenticationContext);
@@ -24,6 +26,15 @@ const AccountScreen = () => {
 
   return (
     <AccountBackground>
+      <AnimationContainer>
+        <AnimatedLottieView
+          key="animation"
+          resizeMode="cover"
+          autoPlay
+          loop
+          source={require('../../../../../assets/watermelon.json')}
+        />
+      </AnimationContainer>
       <Title>Meals to Go</Title>
       <AccountContainer>
         <AuthButton
