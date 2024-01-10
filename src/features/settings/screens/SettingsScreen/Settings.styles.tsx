@@ -5,7 +5,11 @@ export const SettingsItem = styled(List.Item)`
   padding: 16px;
 `;
 
-export const UserAvatar = styled(Avatar.Icon)`
+export const UserIcon = styled(Avatar.Icon)`
+  background-color: #2182bd;
+`;
+
+export const UserImage = styled(Avatar.Image)`
   background-color: #2182bd;
 `;
 

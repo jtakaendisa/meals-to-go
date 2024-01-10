@@ -1,21 +1,45 @@
-import { ParamListBase, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ParamListBase, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useContext } from 'react';
+import { User } from 'firebase/auth';
+import { useContext, useState } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import { List } from 'react-native-paper';
 import { SafeArea } from '../../../../components/SafeArea/SafeArea';
 import { AuthenticationContext } from '../../../../services/authentication/authentication.context';
-import { SettingsItem, UserAvatar, UserDetailsContainer } from './Settings.styles';
-import { Text } from 'react-native';
-import { User } from 'firebase/auth';
+import {
+  SettingsItem,
+  UserDetailsContainer,
+  UserIcon,
+  UserImage,
+} from './Settings.styles';
 
 const SettingsScreen = () => {
+  const [photo, setPhoto] = useState<string | null>(null);
   const { onLogout, user } = useContext(AuthenticationContext);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+
+  useFocusEffect(() => {
+    const getProfilePicture = async () => {
+      const photoUri = await AsyncStorage.getItem(`${(user as User).uid}-photo`);
+
+      if (photoUri) {
+        setPhoto(photoUri);
+      }
+    };
+    getProfilePicture();
+  });
 
   return (
     <SafeArea>
       <UserDetailsContainer>
-        <UserAvatar size={180} icon="human" />
+        <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+          {!photo ? (
+            <UserIcon size={180} icon="human" />
+          ) : (
+            <UserImage size={180} source={{ uri: photo }} />
+          )}
+        </TouchableOpacity>
         <Text>{(user as User).email}</Text>
       </UserDetailsContainer>
       <List.Section>
